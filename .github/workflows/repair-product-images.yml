@@ -1,0 +1,74 @@
+name: Repair product image assets
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/repair-product-images.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+
+      - name: Download original product images
+        shell: bash
+        run: |
+          set -euo pipefail
+          files=(
+            "src/assets/products/01_shilajit_resin.png"
+            "src/assets/products/02_shilajit_capsules.png"
+            "src/assets/products/03_vitamin_tablets.png"
+            "src/assets/products/04_vitamin_gummies.png"
+            "src/assets/products/05_hux_d3.png"
+            "src/assets/products/06_multivitamin_tablets.png"
+            "src/assets/products/07_vitamin_c_tablets.png"
+            "src/assets/products/08_zinc_tablets.png"
+            "src/assets/products/09_magnesium_tablets.png"
+            "src/assets/products/10_cod_liver_oil_capsules.png"
+            "src/assets/products/11_iron_tablets.png"
+            "src/assets/products/12_b12_tablets.png"
+            "src/assets/products/13_hair_skin_nails_gummies.png"
+            "src/assets/products/14_kids_multivitamin_gummies.png"
+            "src/assets/products/15_biotin_10000_mcg.png"
+            "src/assets/products/b12.png"
+            "src/assets/products/biotin.png"
+            "src/assets/products/cod-liver-oil.png"
+            "src/assets/products/hair-skin-nails.png"
+            "src/assets/products/iron.png"
+            "src/assets/products/kids-gummies.png"
+            "src/assets/products/magnesium.png"
+            "src/assets/products/multivitamin.png"
+            "src/assets/products/shilajit-capsules.png"
+            "src/assets/products/shilajit-resin.png"
+            "src/assets/products/vitamin-c.png"
+            "src/assets/products/vitamin-d3.png"
+            "src/assets/products/vitamin-gummies.png"
+            "src/assets/products/vitamin-tablets.png"
+            "src/assets/products/zinc.png"
+          )
+          for f in "${files[@]}"; do
+            mkdir -p "$(dirname "$f")"
+            curl --fail --location --silent --show-error               "https://raw.githubusercontent.com/Litwebs/The-Thickening/main/$f"               --output "$f"
+            test -s "$f"
+          done
+
+      - name: Commit repaired images
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/assets/products
+          if git diff --cached --quiet; then
+            echo "No image changes required."
+            exit 0
+          fi
+          git commit -m "Repair copied product image assets"
+          git push
