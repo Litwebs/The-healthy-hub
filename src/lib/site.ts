@@ -14,8 +14,8 @@ import hairSkinNails from "@/assets/products/13_hair_skin_nails_gummies.png";
 import kidsGummies from "@/assets/products/14_kids_multivitamin_gummies.png";
 import biotinImg from "@/assets/products/15_biotin_10000_mcg.png";
 
-export const WHATSAPP_NUMBER = "447956736032";
-export const WHATSAPP_DISPLAY = "07956736032";
+export const WHATSAPP_NUMBER = "447508150932";
+export const WHATSAPP_DISPLAY = "07508150932";
 export const EMAIL = "theghealthyhubltd@gmail.com";
 
 export const enquireLink = (product?: string) =>
