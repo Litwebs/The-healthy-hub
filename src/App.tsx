@@ -16,7 +16,7 @@ import RefundExchange from "./pages/RefundExchange.tsx";
 const queryClient = new QueryClient();
 
 const SITE_STATUS_ENDPOINT = "https://admin.litwebs.co.uk/api/websites/status";
-const SITE_URL_TO_CHECK = "https://ykktrading.com";
+const SITE_URL_TO_CHECK = "https://thehealthyhub.info";
 const routerBasename = import.meta.env.BASE_URL;
 
 const App = () => {
